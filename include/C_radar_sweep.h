@@ -2,6 +2,7 @@
 #define C_RADAR_SWEEP_H
 #include <cairo/cairo.h>
 #include <cairo/cairo-xlib.h>
+#include "radar_color_struct.h"
 
 
 class C_radar_sweep
@@ -15,17 +16,7 @@ class C_radar_sweep
 
     private:
         double DIAMETER;
-        double RED = 0;
-        double GREEN = 0.8;
-        double BLUE = 0;
-        /* TODO: Apply struct here
-        struct DEFAULT_COLOR {
-            double red = 0;
-            double green = 0.8;
-            double blue = 0;
-        };
-        */
-
+        color_triade DEFAULT_COLOR = { 0, 0.8, 0};
 };
 
 #endif // C_RADAR_SWEEP_H

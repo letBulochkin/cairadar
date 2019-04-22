@@ -83,22 +83,6 @@ int main(int argc, char* argv[])
     C_radar_sweep SW(DIM-20);
     SW.draw(ctx);
 
-    /*==============================================================
-
-    cairo_set_line_width(ctx, 4); //установить толщину линии
-    cairo_set_source_rgb(ctx, 0, 0.8, 0); //выбор зеленого цвета для линий
-    cairo_arc(ctx, 0, 0, (DIM-20)/2, 0, 2 * M_PI); //круг в нулевых координатах от угла 0 до 2пи
-    cairo_stroke_preserve(ctx); //нарисовать линию
-    cairo_set_source_rgb(ctx, 0, 0, 0);
-    cairo_fill(ctx); //залить круг
-
-    cairo_set_line_width(ctx, 2);
-    cairo_set_source_rgb(ctx, 0, 0.8, 0);
-    cairo_arc(ctx, 0, 0, (DIM-20)/4, 0, 2 * M_PI);
-    cairo_stroke(ctx);
-
-    /*===================================================================*/
-
     XFlush(cairo_xlib_surface_get_display(sfc));
     cairo_destroy(ctx);
 
