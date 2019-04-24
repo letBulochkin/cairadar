@@ -1,6 +1,5 @@
 #include "C_radar_sweep.h"
 #include <math.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include <cairo/cairo.h>
 #include <cairo/cairo-xlib.h>

@@ -5,8 +5,9 @@
 #include <X11/Xatom.h>
 #include <X11/Xutil.h>
 #include <math.h>
+#include <time.h>
 #include "C_radar_sweep.h"
-
+#include "C_radar_ray.h"
 
 #define DIM 620.0
 #define RAD_KM 50.0
@@ -71,6 +72,9 @@ void cairo_close_x11_surface(cairo_surface_t *sfc)
 
 int main(int argc, char* argv[])
 {
+    int signal = 1;
+    struct timespec ts = {0, 50000000};
+
     cairo_surface_t *sfc;
     cairo_t *ctx;
 
@@ -84,12 +88,39 @@ int main(int argc, char* argv[])
 
     C_radar_sweep SW(DIM-20, RAD_KM);
     SW.draw(ctx);
+    C_radar_ray R((DIM-20)/2, 0.05, 0.02);
+    R.draw(ctx, 0);
 
-    XFlush(cairo_xlib_surface_get_display(sfc));
+    cairo_surface_flush(sfc);
+
+    while(signal == 1)
+    {
+        cairo_push_group(ctx);
+        cairo_set_source_rgb(ctx, 0.3, 0.3, 0.3); //выбор серого цвета
+        cairo_paint(ctx);
+        SW.draw(ctx);
+        R.draw(ctx, -1);
+        cairo_pop_group_to_source(ctx);
+        cairo_paint(ctx);
+
+        if(cairo_check_event(sfc, 0) == 0xff1b) signal = 0;
+        nanosleep(&ts, NULL);
+    }
+
+    /*
+    cairo_move_to(ctx, 0, 0);
+    cairo_set_line_width(ctx, 4);
+    cairo_set_source_rgb(ctx, 0, 0, 0.8);
+    cairo_arc(ctx, 0, 0, 300, 0.5 * M_PI, 0.5 * M_PI + 0.05 * M_PI);
+    cairo_fill(ctx);
+    */
+
+
+
+
+    //XFlush(cairo_xlib_surface_get_display(sfc));
     cairo_destroy(ctx);
-
-    cairo_check_event(sfc, 1);
-
+    //cairo_check_event(sfc, 1);
     cairo_close_x11_surface(sfc);
 
     return 0;
