@@ -7,8 +7,10 @@
 #include <math.h>
 #include "C_radar_sweep.h"
 
-#define DIM 620
-#define RAD_KM 50
+
+#define DIM 620.0
+#define RAD_KM 50.0
+#define TEST_MODE True
 
 using namespace std;
 
@@ -80,7 +82,7 @@ int main(int argc, char* argv[])
     cairo_set_source_rgb(ctx, 0.3, 0.3, 0.3); //выбор серого цвета
     cairo_paint(ctx); //залить цветом весь регион
 
-    C_radar_sweep SW(DIM-20);
+    C_radar_sweep SW(DIM-20, RAD_KM);
     SW.draw(ctx);
 
     XFlush(cairo_xlib_surface_get_display(sfc));

@@ -9,13 +9,17 @@ class C_radar_sweep
 {
     public:
         /** Default constructor */
-        C_radar_sweep(double dim);
+        C_radar_sweep(double dim, int km);
         void draw(cairo_t* ctx);
 
     protected:
 
     private:
         double DIAMETER;
+        double KM;
+        double FONT_SIZE = 15;
+        char OUTER_CAP [4]; //я глуп и ленив
+        char INNER_CAP [4];
         color_triade DEFAULT_COLOR = { 0, 0.8, 0};
 };
 
